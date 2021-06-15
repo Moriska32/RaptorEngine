@@ -1,0 +1,8 @@
+github.com/geops/gtfsparser v0.0.0-20180817212205-1cc2f4676115 h1:16a4/vVZBPShZz2wlD6Tf56ocQ7SoImFeQKVwi4Yd9Y=
+github.com/geops/gtfsparser v0.0.0-20180817212205-1cc2f4676115/go.mod h1:xMjrTMaIxDuIhVmg0u1i89J1Ouzy9WoQLzIe4BLWDms=
+github.com/gocarina/gocsv v0.0.0-20210516172204-ca9e8a8ddea8 h1:hp1oqdzmv37vPLYFGjuM/RmUgUMfD9vQfMszc54l55Y=
+github.com/gocarina/gocsv v0.0.0-20210516172204-ca9e8a8ddea8/go.mod h1:5YoVOkjYAQumqlV356Hj3xeYh4BdZuLE0/nRkf2NKkI=
+github.com/jszwec/csvutil v1.5.0 h1:ErLnF1Qzzt9svk8CUY7CyLl/W9eET+KWPIZWkE1o6JM=
+github.com/jszwec/csvutil v1.5.0/go.mod h1:Rpu7Uu9giO9subDyMCIQfHVDuLrcaC36UA4YcJjGBkg=
+github.com/patrickbr/gtfsparser v0.0.0-20210503211936-d06c485ba62b h1:C9TB1Jd8i2Q+Mii0VufGWRY/70n+9UUfslAd/Spz4yU=
+github.com/patrickbr/gtfsparser v0.0.0-20210503211936-d06c485ba62b/go.mod h1:L88c76QEIfk3Z5pr1S715jfv1EIEVZ7BvNiefxz4o3o=
