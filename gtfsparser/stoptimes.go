@@ -1,15 +1,16 @@
 package gtfsparser
 
 import (
+	"EngineOT/raptor"
 	"bufio"
 	"io"
+	"strconv"
 	"strings"
 )
 
 //Stopsparser parsing gtfs stops
-func StopTimesParser(pool io.Reader) []StopTimes {
+func StopTimesParser(pool io.Reader) {
 
-	var stops []StopTimes
 	scanner := bufio.NewScanner(pool)
 	scanner.Scan()
 	for scanner.Scan() {
@@ -17,13 +18,15 @@ func StopTimesParser(pool io.Reader) []StopTimes {
 		line := scanner.Text()
 
 		pool := strings.Split(line, ",")
-		stops = append(stops, StopTimes{
-			stop_id:        pool[0],
-			trip_id:        pool[1],
-			arrival_time:   pool[2],
-			departure_time: pool[3],
+		sid, _ := strconv.Atoi(pool[0])
+		tid, _ := strconv.Atoi(pool[1])
+		raptor.StopTimes = append(raptor.StopTimes, raptor.StopTime{
+			Stop_id:        sid,
+			Trip_id:        tid,
+			Arrival_time:   pool[2],
+			Departure_time: pool[3],
 		})
 
 	}
-	return stops
+
 }

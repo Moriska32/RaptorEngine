@@ -1,6 +1,7 @@
 package gtfsparser
 
 import (
+	"EngineOT/raptor"
 	"archive/zip"
 	"fmt"
 	"log"
@@ -16,8 +17,8 @@ func GTFSParse() {
 	// if err != nil {
 	// 	fmt.Println(err)
 	// }
-	Stops, StopTimes, Route, Trips := Unzip("gtfsparser\\gtfs\\gtfs.zip")
-	_, _, _, _ = Stops, StopTimes, Route, Trips
+	Unzip("gtfsparser\\gtfs\\gtfs.zip")
+
 	return
 }
 func Replacer(pool [][]byte) []string {
@@ -35,17 +36,14 @@ func Replacer(pool [][]byte) []string {
 	return res
 
 }
-func Unzip(path string) ([]Stops, []StopTimes, []Route, []Trips) {
+func Unzip(path string) {
 	start := time.Now()
 	r, err := zip.OpenReader(path)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer r.Close()
-	var stops []Stops
-	var stoptimes []StopTimes
-	var routes []Route
-	var trips []Trips
+
 	for _, f := range r.File {
 		switch {
 		case f.Name == "stops.txt":
@@ -55,8 +53,8 @@ func Unzip(path string) ([]Stops, []StopTimes, []Route, []Trips) {
 				log.Fatal(err)
 			}
 
-			stops = StopsParser(rc)
-			fmt.Println(len(stops))
+			StopsParser(rc)
+			fmt.Println(len(raptor.Stops))
 
 		case f.Name == "stop_times.txt":
 			fmt.Printf("Contents of %s:\n", f.Name)
@@ -64,9 +62,8 @@ func Unzip(path string) ([]Stops, []StopTimes, []Route, []Trips) {
 			if err != nil {
 				log.Fatal(err)
 			}
-
-			stoptimes = StopTimesParser(rc)
-			fmt.Println(len(stoptimes))
+			StopTimesParser(rc)
+			fmt.Println(len(raptor.StopTimes))
 		case f.Name == "routes.txt":
 			fmt.Printf("Contents of %s:\n", f.Name)
 			rc, err := f.Open()
@@ -74,8 +71,8 @@ func Unzip(path string) ([]Stops, []StopTimes, []Route, []Trips) {
 				log.Fatal(err)
 			}
 
-			routes = RoutesParser(rc)
-			fmt.Println(len(routes))
+			RoutesParser(rc)
+			fmt.Println(len(raptor.Routes))
 
 		case f.Name == "trips.txt":
 			fmt.Printf("Contents of %s:\n", f.Name)
@@ -84,12 +81,12 @@ func Unzip(path string) ([]Stops, []StopTimes, []Route, []Trips) {
 				log.Fatal(err)
 			}
 
-			trips = TripsParser(rc)
-			fmt.Println(len(trips))
+			TripsParser(rc)
+			fmt.Println(len(raptor.Trips))
 		}
 
 	}
 	duration := time.Since(start)
 	fmt.Println(duration)
-	return stops, stoptimes, routes, trips
+
 }

@@ -1,33 +1,40 @@
 package gtfsparser
 
 import (
+	"EngineOT/raptor"
 	"bufio"
 	"io"
+	"strconv"
 )
 
 //Stopsparser parsing gtfs stops
-func StopsParser(pool io.Reader) []Stops {
+func StopsParser(pool io.Reader) {
 
-	var stops []Stops
 	scanner := bufio.NewScanner(pool)
 	scanner.Scan()
 	for scanner.Scan() {
 
 		line := scanner.Bytes()
 
-		items := Re.FindAll(line, -1)
+		items := raptor.Re.FindAll(line, -1)
 		pool := Replacer(items)
-		stops = append(stops, Stops{
-			stop_id:             pool[0],
-			stop_code:           pool[1],
-			stop_name:           pool[2],
-			stop_lat:            pool[3],
-			stop_lon:            pool[4],
-			location_type:       pool[5],
-			wheelchair_boarding: pool[6],
-			transport_type:      pool[7],
+		sid, _ := strconv.Atoi(pool[0])
+		sc, _ := strconv.Atoi(pool[1])
+		lat, _ := strconv.ParseFloat(pool[3], 64)
+		lon, _ := strconv.ParseFloat(pool[4], 64)
+		lt, _ := strconv.Atoi(pool[5])
+		wb, _ := strconv.Atoi(pool[6])
+		raptor.Stops = append(raptor.Stops, raptor.Stop{
+			Stop_id:             sid,
+			Stop_code:           sc,
+			Stop_name:           pool[2],
+			Stop_lat:            lat,
+			Stop_lon:            lon,
+			Location_type:       lt,
+			Wheelchair_boarding: wb,
+			Transport_type:      pool[7],
 		})
 
 	}
-	return stops
+
 }
