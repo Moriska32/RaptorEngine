@@ -3,6 +3,7 @@ package gtfsparser
 import (
 	"EngineOT/raptor"
 	"bufio"
+	"fmt"
 	"io"
 	"strconv"
 	"strings"
@@ -18,9 +19,15 @@ func StopTimesParser(pool io.Reader) {
 		line := scanner.Text()
 
 		pool := strings.Split(line, ",")
-		sid, _ := strconv.Atoi(pool[0])
-		tid, _ := strconv.Atoi(pool[1])
-		raptor.StopTimes = append(raptor.StopTimes, raptor.StopTime{
+		sid, err := strconv.Atoi(pool[0])
+		if err != nil {
+			fmt.Sprintln(err)
+		}
+		tid, err := strconv.Atoi(pool[1])
+		if err != nil {
+			fmt.Sprintln(err)
+		}
+		raptor.Gtfs.StopTimes = append(raptor.Gtfs.StopTimes, raptor.StopTime{
 			Stop_id:        sid,
 			Trip_id:        tid,
 			Arrival_time:   pool[2],

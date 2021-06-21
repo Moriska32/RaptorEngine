@@ -22,7 +22,7 @@ func TripsParser(pool io.Reader) {
 		sid, _ := strconv.Atoi(pool[1])
 		tid, _ := strconv.Atoi(pool[2])
 		did, _ := strconv.Atoi(pool[4])
-		raptor.Trips = append(raptor.Trips, raptor.Trip{
+		raptor.Gtfs.Trips = append(raptor.Gtfs.Trips, raptor.Trip{
 			Route_id:     rid,
 			Service_id:   sid,
 			Trip_id:      tid,

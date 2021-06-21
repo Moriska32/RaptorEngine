@@ -3,12 +3,24 @@ package raptor
 import "regexp"
 
 var (
-	Re        = regexp.MustCompile(`(?:,|\n|^)("(?:(?:"")*[^"]*)*"|[^",\n]*|(?:\n|$))`)
+	Re = regexp.MustCompile(`(?:,|\n|^)("(?:(?:"")*[^"]*)*"|[^",\n]*|(?:\n|$))`)
+
+	C    CoordsOfStops
+	Gtfs GtfsStruct
+)
+
+type GtfsStruct struct {
 	Stops     []Stop
 	StopTimes []StopTime
 	Trips     []Trip
 	Routes    []Route
-)
+}
+type CoordsOfStops struct {
+	FromStopLon float64
+	FromStopLat float64
+	ToStopLon   float64
+	ToStopLat   float64
+}
 
 //StopTime stoptime
 type StopTime struct {

@@ -24,7 +24,7 @@ func StopsParser(pool io.Reader) {
 		lon, _ := strconv.ParseFloat(pool[4], 64)
 		lt, _ := strconv.Atoi(pool[5])
 		wb, _ := strconv.Atoi(pool[6])
-		raptor.Stops = append(raptor.Stops, raptor.Stop{
+		raptor.Gtfs.Stops = append(raptor.Gtfs.Stops, raptor.Stop{
 			Stop_id:             sid,
 			Stop_code:           sc,
 			Stop_name:           pool[2],

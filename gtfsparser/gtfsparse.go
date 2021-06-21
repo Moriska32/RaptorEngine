@@ -5,22 +5,8 @@ import (
 	"archive/zip"
 	"fmt"
 	"log"
-	"time"
 )
 
-func GTFSParse() {
-
-	//var stops []Stops
-
-	// stopsf, err := ioutil.ReadFile("stops.txt")
-
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	Unzip("gtfsparser\\gtfs\\gtfs.zip")
-
-	return
-}
 func Replacer(pool [][]byte) []string {
 
 	res := []string{}
@@ -36,8 +22,9 @@ func Replacer(pool [][]byte) []string {
 	return res
 
 }
-func Unzip(path string) {
-	start := time.Now()
+func Unzip(path string) error {
+
+	//start := time.Now()
 	r, err := zip.OpenReader(path)
 	if err != nil {
 		log.Fatal(err)
@@ -50,43 +37,45 @@ func Unzip(path string) {
 			fmt.Printf("Contents of %s:\n", f.Name)
 			rc, err := f.Open()
 			if err != nil {
-				log.Fatal(err)
+				fmt.Println(err)
 			}
 
 			StopsParser(rc)
-			fmt.Println(len(raptor.Stops))
+			fmt.Println(len(raptor.Gtfs.Stops))
 
 		case f.Name == "stop_times.txt":
 			fmt.Printf("Contents of %s:\n", f.Name)
 			rc, err := f.Open()
 			if err != nil {
-				log.Fatal(err)
+				fmt.Println(err)
 			}
 			StopTimesParser(rc)
-			fmt.Println(len(raptor.StopTimes))
+			fmt.Println(len(raptor.Gtfs.StopTimes))
+
 		case f.Name == "routes.txt":
 			fmt.Printf("Contents of %s:\n", f.Name)
 			rc, err := f.Open()
 			if err != nil {
-				log.Fatal(err)
+				fmt.Println(err)
 			}
 
 			RoutesParser(rc)
-			fmt.Println(len(raptor.Routes))
+			fmt.Println(len(raptor.Gtfs.Routes))
 
 		case f.Name == "trips.txt":
 			fmt.Printf("Contents of %s:\n", f.Name)
 			rc, err := f.Open()
 			if err != nil {
-				log.Fatal(err)
+				fmt.Println(err)
 			}
 
 			TripsParser(rc)
-			fmt.Println(len(raptor.Trips))
+			fmt.Println(len(raptor.Gtfs.Trips))
 		}
 
 	}
-	duration := time.Since(start)
-	fmt.Println(duration)
+	//duration := time.Since(start)
+	//fmt.Println(duration)
 
+	return err
 }
